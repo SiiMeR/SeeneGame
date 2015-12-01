@@ -7,7 +7,7 @@ import math
 from pygame import *
 from random import getrandbits
 
-
+#teine test
 resolutsioon = (800,640)
 aken = pygame.display.set_mode(resolutsioon, 0, 32) # akna reso ja bit-depth
 taust = Surface((800, 640))
@@ -15,9 +15,7 @@ taust.convert()
 taust.fill(Color(40, 200, 60))
 tile_group = pygame.sprite.Group()
 elusid = 3
-
-
-class Tile(pygame.sprite.Sprite):
+class Tile(pygame.sprite.Sprite): # klass ruudukeste joonistamiseks
     def __init__(self, x, y, HasShroom):
         pygame.sprite.Sprite.__init__(self)
         self.has_shroom = HasShroom
