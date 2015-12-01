@@ -15,6 +15,8 @@ taust.convert()
 taust.fill(Color(40, 200, 60))
 tile_group = pygame.sprite.Group()
 elusid = 3
+seeni = 0
+
 class Tile(pygame.sprite.Sprite): # klass ruudukeste joonistamiseks
     def __init__(self, x, y, HasShroom):
         pygame.sprite.Sprite.__init__(self)
@@ -34,8 +36,13 @@ class Tile(pygame.sprite.Sprite): # klass ruudukeste joonistamiseks
             self.image = pygame.transform.scale(pygame.image.load("selg.jpg"), (75,75)) # kinnikatmise pilt
             self.pööratud = True
 
-    def flip(self):  # ruutude ümberkeeramise funktsioon
-        pass
+    def poora(self):  # ruutude ümberkeeramise funktsioon
+        global elusid,seeni
+        if self.has_shroom:
+            seeni -= 1
+            self.image = pygame.transform.scale(pygame.image.load("seen.bmp"), (75,75))
+        elif not self.has_shroom:
+            elusid -= 1
 
 def main():
 
@@ -45,16 +52,20 @@ def main():
     timer = time.Clock()
     joonistaruudustik()
 
-
     while True:  # gameloop, mis käib kuni lõppu jõuame
+            elukontroller()
+            if seeni == 0:
+                võit()
             timer.tick(60)  # maxfps, üle selle programm kunagi ei saa joosta, hoiab jõudlust kokku
             for event in pygame.event.get():  # võimaldab kasutajal väljuda x nuppu kastuades, või väljuda siis, kui programm ütleb seda
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    pos = pygame.mouse.get_pos()
-                    #ruut = tile(200,200,False)
+                    if event.button == 1:
+                        hiire_asukoht = event.pos
+                        for spr in tile_group:
+                           if spr.rect.collidepoint(hiire_asukoht) == 1:
+                               spr.poora()
 
-               #     if ruut.collidepoint(pos):
-               #         tile_group.flip()
+
                 if event.type == QUIT:
                     return  # murrab True loopist välja
             aken.blit(taust, (0, 0))  #  pane taust ekraanile, alustades koordinaatidelt 0,0
@@ -67,18 +78,31 @@ def main():
 
 
 def joonistaruudustik():
+    global seeni
     for i in range(160,600,100):
         for j in range(100,600,100):
-            teeseen = bool(getrandbits(1))
-            tile_group.add(Tile(i, j, teeseen))
+            onseen = bool(getrandbits(1))
+            if onseen:
+                seeni += 1
+            tile_group.add(Tile(i, j, onseen))
     aken.blit(taust, (0,0))
 
 def joonistatekst():  # kõik tekstid, mida on vaja ekraanile kuvada
-    font = pygame.font.SysFont("impact", 30)
 
-    eluluger = "ELUSID : " + " " "süda " * elusid
-    tekst = font.render(eluluger, 1, (0,0,0))
-    aken.blit(tekst, (10,10))   # pane see tekst ekraanile
+    font = pygame.font.SysFont("impact", 30)
+    seeneluger = "SEENI : " + str(seeni)
+    eluluger = "ELUSID : " + "SÜDA " * elusid
+    elutekst = font.render(eluluger, 1, (0,0,0))
+    seenetekst = font.render(seeneluger, 1, (0,0,0))
+    aken.blit(seenetekst, (690,10))
+    aken.blit(elutekst, (10,10))
+
+def elukontroller():
+    if elusid == 0 or elusid < 0:
+        pygame.quit()
+
+def võit():
+        pygame.quit()
 
 
 main()  # mäng tööle
