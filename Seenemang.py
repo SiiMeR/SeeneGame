@@ -7,7 +7,7 @@ import math
 from pygame import *
 from random import getrandbits
 
-#teine test
+
 resolutsioon = (800,640)
 aken = pygame.display.set_mode(resolutsioon, 0, 32) # akna reso ja bit-depth
 taust = Surface((800, 640))
@@ -33,7 +33,8 @@ class Tile(pygame.sprite.Sprite): # klass ruudukeste joonistamiseks
         if pygame.time.get_ticks() - self.starttick > 2000 and not self.pööratud:
             self.image = pygame.transform.scale(pygame.image.load("selg.jpg"), (75,75)) # kinnikatmise pilt
             self.pööratud = True
-    def flip(self):
+
+    def flip(self):  # ruutude ümberkeeramise funktsioon
         pass
 
 def main():
@@ -43,8 +44,6 @@ def main():
     display.set_caption("Seenekas")
     timer = time.Clock()
     joonistaruudustik()
-
-
 
 
     while True:  # gameloop, mis käib kuni lõppu jõuame
@@ -82,4 +81,4 @@ def joonistatekst():  # kõik tekstid, mida on vaja ekraanile kuvada
     aken.blit(tekst, (10,10))   # pane see tekst ekraanile
 
 
-main()
+main()  # mäng tööle
