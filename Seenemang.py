@@ -50,8 +50,7 @@ class Tile(pygame.sprite.Sprite): # klass ruudukeste joonistamiseks
             elusid -= 1
 
 def menu():
-    size = resolutsioon
-    ekraan = pygame.display.set_mode(size)
+    ekraan = pygame.display.set_mode(resolutsioon)
     ekraan.fill(Color(0,0,255))
     pygame.display.update()
     pygame.key.set_repeat(500,40)
