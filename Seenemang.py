@@ -7,6 +7,7 @@ import math
 from pygame import *
 from random import getrandbits
 import dumbmenu as dm
+from pygame.locals import *
 
 
 resolutsioon = (800,640)
@@ -17,6 +18,7 @@ taust.fill(Color(40, 200, 60))
 tile_group = pygame.sprite.Group()
 elusid = 3
 seeni = 0
+võitja = pygame.image.load('victory.png')
 
 punane = 255,0,0
 roheline = 0,255,0
@@ -125,8 +127,20 @@ def elukontroller():
     if elusid == 0 or elusid < 0:
         pygame.quit()
 
+võitja_rect = võitja.get_rect()
+
 def võit():
-       pygame.quit()
+    while True:
+        for event in pygame.event.get():
+            pygame.init()
+            pygame.mixer.init()
+            pygame.mixer.music.load('V_IT_.ogg')
+            pygame.mixer.music.play()
+            aken.blit(võitja,võitja_rect)
+            pygame.display.update()
+            if event.type == QUIT:
+                quit()
+
 
 menu()
 main()
