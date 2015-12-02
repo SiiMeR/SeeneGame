@@ -130,14 +130,12 @@ def elukontroller():
 võitja_rect = võitja.get_rect()
 
 def võit():
+    pygame.mixer.music.load('V_IT_.ogg')
+    pygame.mixer.music.play()
     while True:
+        aken.blit(võitja,võitja_rect)
+        pygame.display.update()
         for event in pygame.event.get():
-            pygame.init()
-            pygame.mixer.init()
-            pygame.mixer.music.load('V_IT_.ogg')
-            pygame.mixer.music.play()
-            aken.blit(võitja,võitja_rect)
-            pygame.display.update()
             if event.type == QUIT:
                 quit()
 
