@@ -46,22 +46,26 @@ class Tile(pygame.sprite.Sprite): # klass ruudukeste joonistamiseks
         if self.has_shroom:
             seeni -= 1
             self.image = pygame.transform.scale(pygame.image.load("seen.bmp"), (75,75))
+            self.kill()
         elif not self.has_shroom:
             elusid -= 1
 
 def menu():
-    ekraan = pygame.display.set_mode(resolutsioon)
-    ekraan.fill(Color(0,0,255))
-    pygame.display.update()
-    pygame.key.set_repeat(500,40)
 
-    valik = dm.dumbmenu(taust, ['Alusta mängu',
-                                 'Lõpeta mäng'], 64,64,"Comic Sans",32,1.4,Color(255,0,0),Color(0,255,0))
-    if valik == 0:
-        main()
-    elif valik == 1:
-        pygame.quit()
-        exit()
+    ekraan = pygame.display.set_mode(resolutsioon)
+    while True:
+        ekraan.fill(Color(255,255,0))
+        pygame.display.update()
+        pygame.key.set_repeat(500,40)
+        valik = dm.dumbmenu(ekraan, ['Alusta mängu',
+                                     'Lõpeta mäng'], 270,250,"comicsansms",32,0.5,Color(0,0,0),Color(0,0,0))
+
+        if valik == 0:
+            return
+        elif valik == 1:
+            pygame.quit()
+            exit()
+
 
 def main():
 
@@ -81,8 +85,9 @@ def main():
                     if event.button == 1:
                         hiire_asukoht = event.pos
                         for spr in tile_group:
-                           if spr.rect.collidepoint(hiire_asukoht) == 1:
+                           if spr.rect.collidepoint(hiire_asukoht):
                                spr.poora()
+
 
 
                 if event.type == QUIT:
@@ -124,3 +129,4 @@ def võit():
        pygame.quit()
 
 menu()
+main()
