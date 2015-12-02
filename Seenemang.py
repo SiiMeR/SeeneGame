@@ -44,6 +44,15 @@ class Tile(pygame.sprite.Sprite): # klass ruudukeste joonistamiseks
         elif not self.has_shroom:
             elusid -= 1
 
+#def menu():
+ #   while True:
+  #      for event in pygame.event.get():
+   #         if event == pygame.QUIT:
+    #            pygame.quit()
+     #           quit()
+      #  stardikas = Surface((800,640))
+       # stardikas.fill(Color(115,123,123))
+        #aken.blit(taust,(0.0))
 def main():
 
     pygame.init()         # paneme akna käima
@@ -102,7 +111,7 @@ def elukontroller():
         pygame.quit()
 
 def võit():
-        pygame.quit()
+       pygame.quit()
 
-
+menu()
 main()  # mäng tööle
