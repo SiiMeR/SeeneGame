@@ -58,7 +58,7 @@ def menu():
         pygame.display.update()
         pygame.key.set_repeat(500,40)
         valik = dm.dumbmenu(ekraan, ['Alusta mängu',
-                                     'Lõpeta mäng'], 270,250,"comicsansms",32,0.5,Color(0,0,0),Color(0,0,0))
+                                     'Lõpeta mäng'], 300,250,"comicsansms",32,0.5,Color(0,0,0),Color(0,0,0))
 
         if valik == 0:
             return

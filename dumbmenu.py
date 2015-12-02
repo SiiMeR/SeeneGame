@@ -129,7 +129,7 @@ def dumbmenu(screen, menu, x_pos = 100, y_pos = 100, font = None,
 	renderWithChars = False
 	for i in menu:
 		if renderWithChars == False:
-			text =  myfont.render(str(cursorpos + 1)+".  " + i,
+			text =  myfont.render(i,   # võtsin ära str(cursorpos + 1)+".  " + , mis oli peale myfont.render(
 				True, fgcolor)
 		else:
 			text =  myfont.render(chr(char)+".  " + i,
