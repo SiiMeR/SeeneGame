@@ -124,4 +124,3 @@ def võit():
        pygame.quit()
 
 menu()
-  # mäng tööle
