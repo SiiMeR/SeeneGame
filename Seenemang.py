@@ -6,6 +6,7 @@ import pygame
 import math
 from pygame import *
 from random import getrandbits
+import dumbmenu as dm
 
 
 resolutsioon = (800,640)
@@ -16,6 +17,10 @@ taust.fill(Color(40, 200, 60))
 tile_group = pygame.sprite.Group()
 elusid = 3
 seeni = 0
+
+punane = 255,0,0
+roheline = 0,255,0
+sinine = 0,0,255
 
 class Tile(pygame.sprite.Sprite): # klass ruudukeste joonistamiseks
     def __init__(self, x, y, HasShroom):
@@ -44,15 +49,21 @@ class Tile(pygame.sprite.Sprite): # klass ruudukeste joonistamiseks
         elif not self.has_shroom:
             elusid -= 1
 
-#def menu():
- #   while True:
-  #      for event in pygame.event.get():
-   #         if event == pygame.QUIT:
-    #            pygame.quit()
-     #           quit()
-      #  stardikas = Surface((800,640))
-       # stardikas.fill(Color(115,123,123))
-        #aken.blit(taust,(0.0))
+def menu():
+    size = resolutsioon
+    ekraan = pygame.display.set_mode(size)
+    ekraan.fill(Color(0,0,255))
+    pygame.display.update()
+    pygame.key.set_repeat(500,40)
+
+    valik = dm.dumbmenu(taust, ['Alusta mängu',
+                                 'Lõpeta mäng'], 64,64,"Comic Sans",32,1.4,Color(255,0,0),Color(0,255,0))
+    if valik == 0:
+        main()
+    elif valik == 1:
+        pygame.quit()
+        exit()
+
 def main():
 
     pygame.init()         # paneme akna käima
@@ -114,4 +125,4 @@ def võit():
        pygame.quit()
 
 menu()
-main()  # mäng tööle
+  # mäng tööle
