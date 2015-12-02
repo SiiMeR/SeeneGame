@@ -19,6 +19,7 @@ tile_group = pygame.sprite.Group()
 elusid = 3
 seeni = 0
 võitja = pygame.image.load('victory.png')
+kaotaja = pygame.image.load('loss.png')
 
 punane = 255,0,0
 roheline = 0,255,0
@@ -125,9 +126,10 @@ def joonistatekst():  # kõik tekstid, mida on vaja ekraanile kuvada
 
 def elukontroller():
     if elusid == 0 or elusid < 0:
-        pygame.quit()
+        kaotus()
 
 võitja_rect = võitja.get_rect()
+kaotaja_rect = kaotaja.get_rect()
 
 def võit():
     pygame.mixer.music.load('V_IT_.ogg')
@@ -139,6 +141,15 @@ def võit():
             if event.type == QUIT:
                 quit()
 
+def kaotus():
+    pygame.mixer.music.load('youlose.ogg')
+    pygame.mixer.music.play()
+    while True:
+        aken.blit(kaotaja,kaotaja_rect)
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                quit()
 
 menu()
 main()
