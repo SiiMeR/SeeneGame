@@ -3,12 +3,10 @@ __author__ = 'Siim ja Mari-Liis'
 import sys
 import os
 import pygame
-import math
 from pygame import *
 from random import getrandbits
 import dumbmenu as dm
 from pygame.locals import *
-
 
 resolutsioon = (800,640)
 aken = pygame.display.set_mode(resolutsioon, 0, 32) # akna reso ja bit-depth
@@ -20,6 +18,7 @@ elusid = 3
 seeni = 0
 võitja = pygame.image.load('victory.png')
 kaotaja = pygame.image.load('loss.png')
+
 
 punane = 255,0,0
 roheline = 0,255,0
@@ -43,15 +42,20 @@ class Tile(pygame.sprite.Sprite): # klass ruudukeste joonistamiseks
         if pygame.time.get_ticks() - self.starttick > 2000 and not self.pööratud:
             self.image = pygame.transform.scale(pygame.image.load("selg.jpg"), (75,75)) # kinnikatmise pilt
             self.pööratud = True
+            LubaKlikk = True
 
     def poora(self):  # ruutude ümberkeeramise funktsioon
         global elusid,seeni
+
         if self.has_shroom:
             seeni -= 1
-            self.image = pygame.transform.scale(pygame.image.load("seen.bmp"), (75,75))
             self.kill()
+            pauk1 = pygame.mixer.Sound('blast1.wav')
+            pauk1.play()
         elif not self.has_shroom:
             elusid -= 1
+            valevalik = pygame.mixer.Sound('wrong.ogg')
+            valevalik.play()
 
 def menu():
 
@@ -151,5 +155,27 @@ def kaotus():
             if event.type == QUIT:
                 quit()
 
+#def intro():   # ma loodan et sony mind maha ei löö // tegelt on see ajutine video algul
+#
+#    pygame.mixer.quit()
+#    movie = pygame.movie.Movie('startupm.mpg')
+#    screen = pygame.display.set_mode(movie.get_size())
+#    movie_screen = pygame.Surface(movie.get_size()).convert()
+#    movie.set_display(movie_screen)
+#    movie.play()
+#
+#    playing = True
+#    while playing:
+#        for event in pygame.event.get():
+#            if event.type == pygame.QUIT:
+#                movie.stop()
+#                playing = False
+#        if not movie.get_busy():
+#            return
+#
+#        screen.blit(movie_screen,(0,0))
+#        pygame.display.update()
+#
+#intro()
 menu()
 main()
