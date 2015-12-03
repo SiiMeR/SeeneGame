@@ -1,15 +1,15 @@
-__author__ = 'Siim ja Mari-Liis'
-# -*- coding:utf-8 -*-
-import sys
-import os
 import pygame
 from pygame import *
 from random import getrandbits
 import dumbmenu as dm
 from pygame.locals import *
 
-resolutsioon = (800,640)
-aken = pygame.display.set_mode(resolutsioon, 0, 32) # akna reso ja bit-depth
+__author__ = 'Siim ja Mari-Liis'
+# -*- coding:utf-8 -*-
+
+
+resolutsioon = (800, 640)
+aken = pygame.display.set_mode(resolutsioon, 0, 32)  # akna reso ja bit-depth
 taust = Surface((800, 640))
 taust.convert()
 taust.fill(Color(40, 200, 60))
@@ -19,19 +19,19 @@ seeni = 0
 võitja = pygame.image.load('victory.png')
 kaotaja = pygame.image.load('loss.png')
 
+punane = 255, 0, 0
+roheline = 0, 255, 0
+sinine = 0, 0, 255
 
-punane = 255,0,0
-roheline = 0,255,0
-sinine = 0,0,255
 
-class Tile(pygame.sprite.Sprite): # klass ruudukeste joonistamiseks
+class Tile(pygame.sprite.Sprite):  # klass ruudukeste joonistamiseks
     def __init__(self, x, y, HasShroom):
         pygame.sprite.Sprite.__init__(self)
         self.has_shroom = HasShroom
         if self.has_shroom:
-            self.image = pygame.transform.scale(pygame.image.load('seen.bmp'), (75, 75)) # seentega ruutude pilt
+            self.image = pygame.transform.scale(pygame.image.load('seen.bmp'), (75, 75))  # seentega ruutude pilt
         elif not self.has_shroom:
-            self.image = pygame.transform.scale(pygame.image.load('selg.jpg'), (75, 75)) # seenteta ruutude pilt
+            self.image = pygame.transform.scale(pygame.image.load('selg.jpg'), (75, 75))  # seenteta ruutude pilt
         self.rect = self.image.get_rect()
         self.rect[0] = x
         self.rect[1] = y
@@ -40,12 +40,11 @@ class Tile(pygame.sprite.Sprite): # klass ruudukeste joonistamiseks
 
     def update(self):
         if pygame.time.get_ticks() - self.starttick > 2000 and not self.pööratud:
-            self.image = pygame.transform.scale(pygame.image.load("selg.jpg"), (75,75)) # kinnikatmise pilt
+            self.image = pygame.transform.scale(pygame.image.load("selg.jpg"), (75, 75))  # kinnikatmise pilt
             self.pööratud = True
-            LubaKlikk = True
 
     def poora(self):  # ruutude ümberkeeramise funktsioon
-        global elusid,seeni
+        global elusid, seeni
 
         if self.has_shroom:
             seeni -= 1
@@ -57,15 +56,15 @@ class Tile(pygame.sprite.Sprite): # klass ruudukeste joonistamiseks
             valevalik = pygame.mixer.Sound('wrong.ogg')
             valevalik.play()
 
-def menu():
 
+def menu():
     ekraan = pygame.display.set_mode(resolutsioon)
     while True:
-        ekraan.fill(Color(255,255,0))
+        ekraan.fill(Color(255, 255, 0))
         pygame.display.update()
         pygame.key.set_repeat(500,40)
         valik = dm.dumbmenu(ekraan, ['Alusta mängu',
-                                     'Lõpeta mäng'], 300,250,"comicsansms",32,0.5,Color(0,0,0),Color(0,0,0))
+                                     'Lõpeta mäng'], 300, 250, "comicsansms", 32, 0.5, Color(0, 0, 0), Color(0, 0, 0))
 
         if valik == 0:
             return
@@ -118,6 +117,7 @@ def joonistaruudustik():
             tile_group.add(Tile(i, j, onseen))
     aken.blit(taust, (0,0))
 
+
 def joonistatekst():  # kõik tekstid, mida on vaja ekraanile kuvada
 
     font = pygame.font.SysFont("impact", 30)
@@ -128,12 +128,16 @@ def joonistatekst():  # kõik tekstid, mida on vaja ekraanile kuvada
     aken.blit(seenetekst, (690,10))
     aken.blit(elutekst, (10,10))
 
+
 def elukontroller():
     if elusid == 0 or elusid < 0:
         kaotus()
 
+
 võitja_rect = võitja.get_rect()
 kaotaja_rect = kaotaja.get_rect()
+
+
 
 def võit():
     pygame.mixer.music.load('V_IT_.ogg')
@@ -145,6 +149,7 @@ def võit():
             if event.type == QUIT:
                 quit()
 
+
 def kaotus():
     pygame.mixer.music.load('youlose.ogg')
     pygame.mixer.music.play()
@@ -154,6 +159,7 @@ def kaotus():
         for event in pygame.event.get():
             if event.type == QUIT:
                 quit()
+
 
 #def intro():   # ma loodan et sony mind maha ei löö // tegelt on see ajutine video algul
 #
