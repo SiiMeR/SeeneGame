@@ -107,6 +107,22 @@ def main():
             pygame.display.flip()
 
 
+
+def alustauuesti():
+    ekraan = pygame.display.set_mode(resolutsioon)
+    while True:
+        ekraan.fill(Color(255, 255, 0))
+        pygame.display.update()
+        pygame.key.set_repeat(500,40)
+        valik = dm.dumbmenu(ekraan, ['Jah',
+                                     'Ei'], 300, 250, "comicsansms", 32, 0.5, Color(0, 0, 0), Color(0, 0, 0))
+
+        if valik == 0:
+            main()
+        elif valik == 1:
+            pygame.quit()
+            exit()
+
 def joonistaruudustik():
     global seeni
     for i in range(160,600,100):
@@ -134,9 +150,9 @@ def elukontroller():
         kaotus()
 
 
+
 võitja_rect = võitja.get_rect()
 kaotaja_rect = kaotaja.get_rect()
-
 
 
 def võit():
@@ -153,6 +169,7 @@ def võit():
 def kaotus():
     pygame.mixer.music.load('youlose.ogg')
     pygame.mixer.music.play()
+
     while True:
         aken.blit(kaotaja,kaotaja_rect)
         pygame.display.update()
@@ -185,3 +202,4 @@ def kaotus():
 #intro()
 menu()
 main()
+alustauuesti()
