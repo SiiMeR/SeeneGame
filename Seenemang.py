@@ -25,7 +25,7 @@ roheline = 0, 255, 0
 sinine = 0, 0, 255
 
 
-class Tile(pygame.sprite.Sprite):  # klass ruudukeste joonistamiseks
+class Tile(pygame.sprite.Sprite):  # klass ruudukeste jaoks
     def __init__(self, x, y, HasShroom):
         pygame.sprite.Sprite.__init__(self)
         self.has_shroom = HasShroom
@@ -78,7 +78,6 @@ def menu():
 
 def main():
 
-
     pygame.init()         # paneme akna käima
     pygame.mixer.init()   # muusika
     display.set_caption("Seenekas")
@@ -91,6 +90,8 @@ def main():
                 võit()
             timer.tick(60)  # maxfps, üle selle programm kunagi ei saa joosta, hoiab jõudlust kokku
             for event in pygame.event.get():  # võimaldab kasutajal väljuda x nuppu kastuades, või väljuda siis, kui programm ütleb seda
+                if event.type == pygame.KEYDOWN and event.key == K_F1:
+                    alustauuesti()
                 if event.type == pygame.MOUSEBUTTONDOWN and valmis:
                     if event.button == 1:
                         hiire_asukoht = event.pos
@@ -113,6 +114,7 @@ def main():
 
 def joonistaruudustik():
     global seeni
+    tile_group.empty()
     for i in range(160,600,100):
         for j in range(100,600,100):
             onseen = bool(getrandbits(1))
@@ -168,7 +170,7 @@ def kaotus():
     alustauuesti()
 
 def alustauuesti():
-    global elusid
+    global elusid, seeni
     font = pygame.font.SysFont("comicsansms", 40)
     uuestitekst = "Kas soovid uuesti alustada?"
     uuestirender = font.render(uuestitekst, 1, (0,0,0))
@@ -182,7 +184,8 @@ def alustauuesti():
                                      'Ei'], 340, 250, "comicsansms", 32, 0.5, Color(0, 0, 0), Color(0, 0, 0))
 
         if valik == 0:
-            elusid += 3
+            seeni = 0
+            elusid = 3
             main()
 
         elif valik == 1:
