@@ -138,7 +138,7 @@ def joonistaruudustik():
 
 def joonistatekst():  # kõik tekstid, mida on vaja ekraanile kuvada
 
-    font = pygame.font.Font("joystixmonospace.ttf", 24)
+    font = pygame.font.Font("joystixmonospace.ttf", 29)
 
     seeneluger = "SEENI  : " + str(seeni)
     eluluger = "ELUSID : " + "SÜDA " * elusid
@@ -146,7 +146,7 @@ def joonistatekst():  # kõik tekstid, mida on vaja ekraanile kuvada
     elutekst = font.render(eluluger, 1, (125,0,0))
     seenetekst = font.render(seeneluger, 1, (125,0,0))
 
-    aken.blit(seenetekst, (10,40))
+    aken.blit(seenetekst, (10,45))
     aken.blit(elutekst, (10,10))
 
 
