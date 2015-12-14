@@ -79,7 +79,7 @@ def menu():
         pygame.display.update()
         pygame.key.set_repeat(500,40)
         valik = dm.dumbmenu(ekraan, ['Alusta mängu',
-                                     'Lõpeta mäng'], 300, 250, "comicsansms", 32, 0.5, Color(0, 0, 0), Color(0, 0, 0))
+                                     'Lõpeta mäng'], 250, 200, "joystixmonospace.ttf", 32, 0.5, Color(0, 0, 0), Color(0, 0, 0))
 
         if valik == 0:
             return
@@ -185,21 +185,22 @@ def kaotus():
 
 def alustauuesti():
     global elusid, seeni
-    font = pygame.font.SysFont("comicsansms", 40)
+    font = pygame.font.Font("joystixmonospace.ttf", 27)
     uuestitekst = "Kas soovid uuesti alustada?"
     uuestirender = font.render(uuestitekst, 1, (0,0,0))
     aken.fill(Color(255, 255, 0))
     while True:
-        aken.blit(uuestirender, (150, 150))
+        aken.blit(uuestirender, (100, 150))
 
         pygame.display.update()
         pygame.key.set_repeat(500,40)
         valik = dm.dumbmenu(aken, ['Jah',
-                                     'Ei'], 340, 250, "comicsansms", 32, 0.5, Color(0, 0, 0), Color(0, 0, 0))
+                                     'Ei'], 340, 250, "joystixmonospace.ttf", 25, 0.5, Color(0, 0, 0), Color(0, 0, 0))
 
         if valik == 0:
             seeni = 0
             elusid = 3
+            pygame.mixer.music.stop()
             main()
 
         elif valik == 1:
