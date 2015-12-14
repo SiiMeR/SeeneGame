@@ -10,16 +10,17 @@ __author__ = 'Siim ja Mari-Liis'
 
 # -*- coding:utf-8 -*-
 
-resolutsioon = (800, 640)
+resolutsioon = (800, 600)
 aken = pygame.display.set_mode(resolutsioon, 0, 32)  # akna reso ja bit-depth
-taust = Surface((800, 640))
+taust = Surface((800, 600))
 taust.convert()
-taust.fill(Color(40, 200, 60))
+#taust.fill(Color(40, 200, 60))
 tile_group = pygame.sprite.Group()
 elusid = 3
 seeni = 0
 võitja = pygame.image.load('victory.png')
 kaotaja = pygame.image.load('loss.png')
+taustapilt = pygame.image.load("plats.png")
 valmis = False
 punane = 255, 0, 0
 roheline = 0, 255, 0
@@ -54,6 +55,7 @@ class Tile(pygame.sprite.Sprite):  # klass ruudukeste jaoks
             seeni -= 1
             self.kill()
             pauk1 = pygame.mixer.Sound('blast1.wav')
+            pauk1.set_volume(.3)
             pauk1.play()
         elif not self.has_shroom:
             elusid -= 1
@@ -104,7 +106,7 @@ def main():
 
                 if event.type == QUIT:
                     return  # murrab True loopist välja
-            aken.blit(taust, (0, 0))  #  pane taust ekraanile, alustades koordinaatidelt 0,0
+            aken.blit(taustapilt, (0, 0))  #  pane taust ekraanile, alustades koordinaatidelt 0,0
 
             joonistatekst()
             tile_group.draw(aken)
