@@ -6,8 +6,9 @@ from pygame.locals import *
 from time import sleep
 
 __author__ = 'Siim ja Mari-Liis'
-# -*- coding:utf-8 -*-
 
+
+# -*- coding:utf-8 -*-
 
 resolutsioon = (800, 640)
 aken = pygame.display.set_mode(resolutsioon, 0, 32)  # akna reso ja bit-depth
