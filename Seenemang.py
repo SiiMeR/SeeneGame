@@ -30,7 +30,7 @@ class Tile(pygame.sprite.Sprite):  # klass ruudukeste jaoks
         pygame.sprite.Sprite.__init__(self)
         self.has_shroom = HasShroom
         if self.has_shroom:
-            self.image = pygame.transform.scale(pygame.image.load('seen.bmp'), (75, 75))  # seentega ruutude pilt
+            self.image = pygame.transform.scale(pygame.image.load('seen.png'), (75, 75))  # seentega ruutude pilt
         elif not self.has_shroom:
             self.image = pygame.transform.scale(pygame.image.load('selg.jpg'), (75, 75))  # seenteta ruutude pilt
         self.rect = self.image.get_rect()
