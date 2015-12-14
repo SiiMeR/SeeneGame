@@ -12,19 +12,28 @@ __author__ = 'Siim ja Mari-Liis'
 
 resolutsioon = (800, 600)
 aken = pygame.display.set_mode(resolutsioon, 0, 32)  # akna reso ja bit-depth
+
 taust = Surface((800, 600))
 taust.convert()
-#taust.fill(Color(40, 200, 60))
+
 tile_group = pygame.sprite.Group()
+
 elusid = 3
 seeni = 0
+
+ikoon = pygame.image.load("seen.png")
+pygame.display.set_icon(ikoon)
+
 võitja = pygame.image.load('victory.png')
 kaotaja = pygame.image.load('loss.png')
 taustapilt = pygame.image.load("plats.png")
+
 valmis = False
+
 punane = 255, 0, 0
 roheline = 0, 255, 0
 sinine = 0, 0, 255
+
 
 
 class Tile(pygame.sprite.Sprite):  # klass ruudukeste jaoks
@@ -129,19 +138,21 @@ def joonistaruudustik():
 
 def joonistatekst():  # kõik tekstid, mida on vaja ekraanile kuvada
 
-    font = pygame.font.SysFont("impact", 30)
-    seeneluger = "SEENI : " + str(seeni)
+    font = pygame.font.Font("joystixmonospace.ttf", 24)
+
+    seeneluger = "SEENI  : " + str(seeni)
     eluluger = "ELUSID : " + "SÜDA " * elusid
-    elutekst = font.render(eluluger, 1, (0,0,0))
-    seenetekst = font.render(seeneluger, 1, (0,0,0))
-    aken.blit(seenetekst, (690,10))
+
+    elutekst = font.render(eluluger, 1, (125,0,0))
+    seenetekst = font.render(seeneluger, 1, (125,0,0))
+
+    aken.blit(seenetekst, (10,40))
     aken.blit(elutekst, (10,10))
 
 
 def elukontroller():
     if elusid == 0 or elusid < 0:
         kaotus()
-
 
 
 võitja_rect = võitja.get_rect()
