@@ -21,6 +21,7 @@ tile_group = pygame.sprite.Group()
 
 elusid = 3
 seeni = 0
+maxseeni = 0
 
 ikoon = pygame.image.load("seen.png")
 pygame.display.set_icon(ikoon)
@@ -74,16 +75,39 @@ class Tile(pygame.sprite.Sprite):  # klass ruudukeste jaoks
 
 
 def menu():
+    global maxseeni
     while True:
         aken.blit(taust,(0,0))
-        pygame.display.update()
+
         pygame.key.set_repeat(500,40)
         valik = dm.dumbmenu(aken, ['Alusta',
-                                     'Lahku'], 305, 200, "joystixmonospace.ttf", 35, 0.5, Color(0, 0, 0), Color(0, 0, 0), True, Color(150,0,0)) # viimane Color vahetab outline colorit
+                                     'Lahku'], 305, 200, "joystixmonospace.ttf", 35, 0.5, Color(0, 0, 0), Color(0, 0, 0), True, Color(255,150,0)) # viimane Color vahetab outline colorit
         pygame.display.update()
         pygame.display.flip()
         if valik == 0:
-            return
+            font = pygame.font.Font("joystixmonospace.ttf", 35)
+
+            aken.blit(taust,(0,0))
+            raskusastetekst = "Vali raskusaste"
+
+            raskusastetekstrender = textOutline(font, raskusastetekst, (0,1,0),(255,150,0))
+            aken.blit(raskusastetekstrender, (175,100))
+            valik2 = dm.dumbmenu(aken, ['Kerge',
+                                     'Keskmine',
+                                        "Raske",
+                                        "Tagasi"], 305, 200, "joystixmonospace.ttf", 35, 0.5, Color(0, 0, 0), Color(0, 0, 0), True, Color(255,150,0))
+            if valik2 == 0:
+                maxseeni = 4
+                return
+            elif valik2 == 1:
+                maxseeni = 8
+                return
+            elif valik2 == 2:
+                maxseeni = 12
+                return
+            elif valik2 == 3:
+                valik
+
         elif valik == 1:
             raise SystemExit
 
@@ -127,12 +151,12 @@ def main():
 
 
 def joonistaruudustik():
-    global seeni
+    global seeni, maxseeni
     tile_group.empty()
     for i in range(160,600,100):
         for j in range(100,600,100):
             onseen = bool(getrandbits(1))
-            if onseen:
+            if onseen and seeni != maxseeni:
                 seeni += 1
             tile_group.add(Tile(i, j, onseen))
     aken.blit(taust, (0,0))
@@ -192,7 +216,7 @@ def alustauuesti():
 
     uuestitekst = "Kas soovid uuesti alustada?"
 
-    uuestirender = textOutline(font, uuestitekst, (0,1,0),(150,0,0))
+    uuestirender = textOutline(font, uuestitekst, (0,1,0),(255,150,0))
     aken.blit(taust,(0,0))
     while True:
         for event in pygame.event.get():
@@ -202,7 +226,7 @@ def alustauuesti():
         pygame.display.update()
         pygame.key.set_repeat(500,40)
         valik = dm.dumbmenu(aken, ['Jah',
-                                     'Ei'], 340, 250, "joystixmonospace.ttf", 25, 0.5, Color(0, 0, 0), Color(0, 0, 0), True, Color(150,0,0))
+                                     'Ei'], 340, 250, "joystixmonospace.ttf", 25, 0.5, Color(0, 0, 0), Color(0, 0, 0), True, Color(255,150,0))
 
         if valik == 0:
             seeni = 0

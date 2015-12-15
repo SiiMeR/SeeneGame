@@ -163,7 +163,7 @@ def dumbmenu(screen, menu, x_pos = 100, y_pos = 100, font = None,
 
 	# Draw the ">", the Cursor
 	cursorpos = 0
-	cursor = myfont.render(">", True, cursorcolor)
+	cursor = textOutline(myfont, ">", (0,1,0), (255,150,0))
 	cursorrect = cursor.get_rect()
 	cursorrect = cursorrect.move(x_pos - (size // distance),
 				 (size // distance * cursorpos) + y_pos)
