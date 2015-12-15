@@ -73,19 +73,18 @@ class Tile(pygame.sprite.Sprite):  # klass ruudukeste jaoks
 
 
 def menu():
-    ekraan = pygame.display.set_mode(resolutsioon)
     while True:
-        ekraan.fill(Color(255, 255, 0))
+        aken.fill(Color(255, 255, 0))
         pygame.display.update()
         pygame.key.set_repeat(500,40)
-        valik = dm.dumbmenu(ekraan, ['Alusta mängu',
+        valik = dm.dumbmenu(aken, ['Alusta mängu',
                                      'Lõpeta mäng'], 250, 200, "joystixmonospace.ttf", 32, 0.5, Color(0, 0, 0), Color(0, 0, 0))
-
+        pygame.display.update()
+        pygame.display.flip()
         if valik == 0:
             return
         elif valik == 1:
-            pygame.quit()
-            exit()
+            raise SystemExit
 
 
 def main():
@@ -114,7 +113,9 @@ def main():
 
 
                 if event.type == QUIT:
-                    return  # murrab True loopist välja
+                    raise SystemExit
+
+                    pygame.display.flip()
             aken.blit(taustapilt, (0, 0))  #  pane taust ekraanile, alustades koordinaatidelt 0,0
 
             joonistatekst()
@@ -158,7 +159,6 @@ def elukontroller():
 võitja_rect = võitja.get_rect()
 kaotaja_rect = kaotaja.get_rect()
 
-
 def võit():
     pygame.mixer.music.load('V_IT_.ogg')
     pygame.mixer.music.play()
@@ -167,7 +167,7 @@ def võit():
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == QUIT:
-                quit()
+                raise SystemExit
 
 
 def kaotus():
@@ -179,19 +179,21 @@ def kaotus():
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == QUIT:
-                quit()
+                raise SystemExit
         sleep(1)
     alustauuesti()
 
 def alustauuesti():
-    global elusid, seeni
+    global elusid, seeni, valmis
     font = pygame.font.Font("joystixmonospace.ttf", 27)
     uuestitekst = "Kas soovid uuesti alustada?"
     uuestirender = font.render(uuestitekst, 1, (0,0,0))
     aken.fill(Color(255, 255, 0))
     while True:
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                raise SystemExit
         aken.blit(uuestirender, (100, 150))
-
         pygame.display.update()
         pygame.key.set_repeat(500,40)
         valik = dm.dumbmenu(aken, ['Jah',
@@ -200,12 +202,12 @@ def alustauuesti():
         if valik == 0:
             seeni = 0
             elusid = 3
+            valmis = False
             pygame.mixer.music.stop()
             main()
 
         elif valik == 1:
-            pygame.quit()
-            exit()
+            raise SystemExit
 
 
 def intro():   # ma loodan et sony mind maha ei löö // tegelt on see ajutine video algul

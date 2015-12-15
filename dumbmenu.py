@@ -2,6 +2,19 @@
 # -*- coding: utf-8 -*-
 
 import pygame, sys
+from random import randint
+seenesuurus = 50
+
+labipaistvus = 30
+loppenud = False
+def genereerisuvakas():
+	suvakas = (randint(40,450),randint(40,450))
+	return suvakas
+def randomseenesuurus():
+	randomseen = randint(40,150)
+	return randomseen
+praeguneseen = randomseenesuurus()
+praegunesuvakas = genereerisuvakas()
 
 # **********************************************************************
 # Function "dumbmenu" **************************************************
@@ -118,7 +131,6 @@ def dumbmenu(screen, menu, x_pos = 100, y_pos = 100, font = None,
 	- added "font", which allows to choose a Systemfont
 	"""
 
-
 	# Draw the Menupoints
 	pygame.font.init()
 	if font == None:
@@ -159,9 +171,55 @@ def dumbmenu(screen, menu, x_pos = 100, y_pos = 100, font = None,
 	clock = pygame.time.Clock()
 	filler = pygame.Surface.copy(screen)
 	fillerrect = filler.get_rect()
+
+	def blit_alpha(target, source, location, opacity):
+			x = location[0]
+			y = location[1]
+			temp = pygame.Surface((source.get_width(), source.get_height())).convert()
+			temp.blit(target, (-x, -y))
+			temp.blit(source, (0, 0))
+			temp.set_alpha(opacity)
+			target.blit(temp, location)
+
+	def seenegeneraator(size,positsioon):
+		global seenesuurus, labipaistvus,loppenud, praeguneseen
+		seen_orig = pygame.transform.scale(pygame.image.load("seenoutline.png"), (positsioon))
+		seen_rect = seen_orig.get_rect()
+		seencopy = pygame.transform.scale(pygame.image.load("seenoutline.png"), (praeguneseen,praeguneseen)).convert_alpha()
+		seencopyrect = seencopy.get_rect()
+		seencopyrect.center = (seen_rect[2],seen_rect[3])
+
+		if size < 350:
+			praeguneseen += 1
+			labipaistvus += 1
+			blit_alpha(screen, seencopy, seencopyrect, labipaistvus)
+		elif 350 <= size <= 500:
+			praeguneseen += 1
+			labipaistvus -= 2
+			blit_alpha(screen, seencopy,seencopyrect, labipaistvus)
+		elif size >= 500:
+			loppenud = True
+
 	while True:
+		global loppenud,praeguneseen,praegunesuvakas,labipaistvus
 		clock.tick(30)
+		screen.blit(filler,fillerrect)
+
+		if not loppenud:
+			seenegeneraator(praeguneseen,praegunesuvakas)
+
+		if loppenud:
+			labipaistvus = 5
+			praegunesuvakas = genereerisuvakas()
+			praeguneseen = randomseenesuurus()
+			loppenud = False
+
+
+		screen.blit(cursor, cursorrect)
+		pygame.display.flip()
 		if ArrowPressed == True:
+
+
 			screen.blit(filler, fillerrect)
 			pygame.display.update(cursorrect)
 			cursorrect = cursor.get_rect()
