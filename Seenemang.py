@@ -13,7 +13,7 @@ __author__ = 'Siim ja Mari-Liis'
 resolutsioon = (800, 600)
 aken = pygame.display.set_mode(resolutsioon, 0, 32)  # akna reso ja bit-depth
 
-taust = Surface((800, 600))
+taust = pygame.image.load('bgtitle.png')
 taust.convert()
 
 tile_group = pygame.sprite.Group()
@@ -24,7 +24,7 @@ seeni = 0
 ikoon = pygame.image.load("seen.png")
 pygame.display.set_icon(ikoon)
 
-võitja = pygame.image.load('victory.png')
+voitja = pygame.image.load('victory.png')
 kaotaja = pygame.image.load('loss.png')
 taustapilt = pygame.image.load("plats.png")
 
@@ -43,21 +43,21 @@ class Tile(pygame.sprite.Sprite):  # klass ruudukeste jaoks
         if self.has_shroom:
             self.image = pygame.transform.scale(pygame.image.load('seen.png'), (75, 75))  # seentega ruutude pilt
         elif not self.has_shroom:
-            self.image = pygame.transform.scale(pygame.image.load('selg.jpg'), (75, 75))  # seenteta ruutude pilt
+            self.image = pygame.transform.scale(pygame.image.load('puravik.png'), (75, 75))  # seenteta ruutude pilt
         self.rect = self.image.get_rect()
         self.rect[0] = x
         self.rect[1] = y
         self.starttick = pygame.time.get_ticks()
-        self.pööratud = False
+        self.pooratud = False
 
     def update(self):
         global valmis
-        if pygame.time.get_ticks() - self.starttick > 2000 and not self.pööratud:
-            self.image = pygame.transform.scale(pygame.image.load("selg.jpg"), (75, 75))  # kinnikatmise pilt
-            self.pööratud = True
+        if pygame.time.get_ticks() - self.starttick > 2000 and not self.pooratud:
+            self.image = pygame.transform.scale(pygame.image.load("mida.png"), (75, 75))  # kinnikatmise pilt
+            self.pooratud = True
             valmis = True
 
-    def poora(self):  # ruutude ümberkeeramise funktsioon
+    def poora(self):
         global elusid, seeni
 
         if self.has_shroom:
@@ -74,11 +74,11 @@ class Tile(pygame.sprite.Sprite):  # klass ruudukeste jaoks
 
 def menu():
     while True:
-        aken.fill(Color(255, 255, 0))
+        aken.blit(taust,(0,0))
         pygame.display.update()
         pygame.key.set_repeat(500,40)
-        valik = dm.dumbmenu(aken, ['Alusta mängu',
-                                     'Lõpeta mäng'], 250, 200, "joystixmonospace.ttf", 32, 0.5, Color(0, 0, 0), Color(0, 0, 0))
+        valik = dm.dumbmenu(aken, ['Alusta mangu',
+                                     'Lopeta mang'], 250, 200, "joystixmonospace.ttf", 32, 0.5, Color(0, 0, 0), Color(0, 0, 0))
         pygame.display.update()
         pygame.display.flip()
         if valik == 0:
@@ -89,18 +89,18 @@ def menu():
 
 def main():
 
-    pygame.init()         # paneme akna käima
+    pygame.init()
     pygame.mixer.init()   # muusika
     display.set_caption("Seenekas")
     timer = time.Clock()
     joonistaruudustik()
 
-    while True:  # gameloop, mis käib kuni lõppu jõuame
+    while True:
             elukontroller()
             if seeni == 0:
-                võit()
-            timer.tick(60)  # maxfps, üle selle programm kunagi ei saa joosta, hoiab jõudlust kokku
-            for event in pygame.event.get():  # võimaldab kasutajal väljuda x nuppu kastuades, või väljuda siis, kui programm ütleb seda
+                voit()
+            timer.tick(60)
+            for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN and event.key == K_F1:
                     alustauuesti()
                 if event.type == pygame.MOUSEBUTTONDOWN and valmis:
@@ -137,12 +137,12 @@ def joonistaruudustik():
     aken.blit(taust, (0,0))
 
 
-def joonistatekst():  # kõik tekstid, mida on vaja ekraanile kuvada
+def joonistatekst():
 
     font = pygame.font.Font("joystixmonospace.ttf", 29)
 
     seeneluger = "SEENI  : " + str(seeni)
-    eluluger = "ELUSID : " + "SÜDA " * elusid
+    eluluger = "ELUSID : " + "SUDA " * elusid
 
     elutekst = font.render(eluluger, 1, (125,0,0))
     seenetekst = font.render(seeneluger, 1, (125,0,0))
@@ -156,14 +156,14 @@ def elukontroller():
         kaotus()
 
 
-võitja_rect = võitja.get_rect()
+voitja_rect = voitja.get_rect()
 kaotaja_rect = kaotaja.get_rect()
 
-def võit():
+def voit():
     pygame.mixer.music.load('V_IT_.ogg')
     pygame.mixer.music.play()
     while True:
-        aken.blit(võitja,võitja_rect)
+        aken.blit(voitja,voitja_rect)
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -171,7 +171,7 @@ def võit():
 
 
 def kaotus():
-    pygame.mixer.music.load('youlose.ogg')
+    pygame.mixer.music.load('gameover.wav')
     pygame.mixer.music.play()
 
     for aeg in range(1,3):
@@ -188,7 +188,7 @@ def alustauuesti():
     font = pygame.font.Font("joystixmonospace.ttf", 27)
     uuestitekst = "Kas soovid uuesti alustada?"
     uuestirender = font.render(uuestitekst, 1, (0,0,0))
-    aken.fill(Color(255, 255, 0))
+    aken.blit(taust,(0,0))
     while True:
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -210,7 +210,7 @@ def alustauuesti():
             raise SystemExit
 
 
-def intro():   # ma loodan et sony mind maha ei löö // tegelt on see ajutine video algul
+def intro():
 
     pygame.mixer.quit()
     movie = pygame.movie.Movie('startupm.mpg')
