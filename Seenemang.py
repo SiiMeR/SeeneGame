@@ -89,7 +89,6 @@ def menu():
 
             aken.blit(taust,(0,0))
             raskusastetekst = "Vali raskusaste"
-
             raskusastetekstrender = textOutline(font, raskusastetekst, (0,1,0),(255,150,0))
             aken.blit(raskusastetekstrender, (175,100))
             valik2 = dm.dumbmenu(aken, ['Kerge',
@@ -164,15 +163,21 @@ def joonistaruudustik():
 
 def joonistatekst():
 
+    syda = pygame.transform.scale(pygame.image.load('syda.png'), (40, 40))
     font = pygame.font.Font("joystixmonospace.ttf", 30)
-
+    eluluger = "ELUSID : "
     seeneluger = "SEENI  : " + str(seeni)
-    eluluger = "ELUSID : " + "SUDA " * elusid
+
+
+
 
     elutekst = textOutline(font,eluluger,(125,0,0),(0,1,0))
     seenetekst = textOutline(font,seeneluger,(125,0,0),(0,1,0))
     #elutekst = font.render(eluluger, 1, (125,0,0))
     #seenetekst = font.render(seeneluger, 1, (125,0,0))
+    for i in range (0,elusid):
+        for j in range(230,230 + (45 * elusid),45):
+            aken.blit(syda, (j,10))
 
     aken.blit(seenetekst, (10,45))
     aken.blit(elutekst, (10,10))
