@@ -3,6 +3,8 @@
 
 import pygame, sys
 from random import randint
+import hollow
+from hollow import *
 seenesuurus = 50
 
 labipaistvus = 30
@@ -20,17 +22,17 @@ praegunesuvakas = genereerisuvakas()
 # Function "dumbmenu" **************************************************
 # **********************************************************************
 def dumbmenu(screen, menu, x_pos = 100, y_pos = 100, font = None,
-            size = 70, distance = 1.4, fgcolor = (255,255,255),
-            cursorcolor = (255,0,0), exitAllowed = True):
+			size = 70, distance = 1.4, fgcolor = (255,255,255),
+			cursorcolor = (255,0,0), exitAllowed = True):
 	"""Draws a Menu using pygame.
 	
 	Parameters are: screen, menu, x_pos, y_pos, font,
-	                size, distance, fgcolor, cursor
-	                
+					size, distance, fgcolor, cursor
+
 	PARAMETERS
 	==========
 	screen (Surface): The surface created with pygame.display.set_mode()
-	                
+
 	menu (List):      A List of every menupoint that should be visible
 	
 	x_pos (digit):   Start of x_position, in Pixels (Default: 100)
@@ -40,25 +42,25 @@ def dumbmenu(screen, menu, x_pos = 100, y_pos = 100, font = None,
 	size (digit):    Fontsize (Default: 70)
 	
 	distance (float):Y-Distance after every single menupoint
-	                 (Default: 1.4)
+					 (Default: 1.4)
 	
 	fgcolor (Tupel): Foreground-Color, means the Font-Color
-	                 (Default: (255,255,255), means white)
-	                 
+					 (Default: (255,255,255), means white)
+
 	cursorcolor (Tupel): Cursor-Color, means that ">"-Charakter
-	                     (Default: (255,0,0), means red)
-	                     
+						 (Default: (255,0,0), means red)
+
 	exitAllowed (Bool): If True:
-	                    If User pressed the ESC-Key, the Cursor will
-	                    move to the last Menupoint. If Cursorposition
-	                    is already to the last Menupoint, a pressed
-	                    ESC-Key will return the latest Menupoint. Very
-	                    useful if the last Menupoint is something like
-	                    "Quit Game"...
-	                    If False:
-	                    A pressed ESC-Key will takes no effect.
-	                    (Default: True)
-	                    
+						If User pressed the ESC-Key, the Cursor will
+						move to the last Menupoint. If Cursorposition
+						is already to the last Menupoint, a pressed
+						ESC-Key will return the latest Menupoint. Very
+						useful if the last Menupoint is something like
+						"Quit Game"...
+						If False:
+						A pressed ESC-Key will takes no effect.
+						(Default: True)
+
 	EXAMPLE
 	=======
 	import pygame
@@ -75,12 +77,12 @@ def dumbmenu(screen, menu, x_pos = 100, y_pos = 100, font = None,
 	pygame.display.update()
 
 	print dumbmenu(screen, [
-	                        'Start Game',
-	                        'Options',
-	                        'Manual',
-	                        'Show Highscore',
-	                        'Quit Game'],
-	                        320, 250, "Courier", 32, 1.4, green, red)
+							'Start Game',
+							'Options',
+							'Manual',
+							'Show Highscore',
+							'Quit Game'],
+							320, 250, "Courier", 32, 1.4, green, red)
 	
 	HOW TO INTERACT
 	===============
@@ -141,15 +143,17 @@ def dumbmenu(screen, menu, x_pos = 100, y_pos = 100, font = None,
 	renderWithChars = False
 	for i in menu:
 		if renderWithChars == False:
-			text =  myfont.render(i,   # võtsin ära str(cursorpos + 1)+".  " + , mis oli peale myfont.render(
-				True, fgcolor)
+			text = textOutline(myfont, i,(0,1,0),(255,255,255))
+			#	text =  myfont.render(i,   # võtsin ära str(cursorpos + 1)+".  " + , mis oli peale myfont.render(
+			#	True, fgcolor)
 		else:
-			text =  myfont.render(chr(char)+".  " + i,
-				True, fgcolor)
+			text = textOutline(myfont, i, fgcolor,fgcolor)
+			#text =  myfont.render(chr(char)+".  " + i,
+			#	True, fgcolor)
 			char += 1
 		textrect = text.get_rect()
 		textrect = textrect.move(x_pos, 
-		           (size // distance * cursorpos) + y_pos)
+				   (size // distance * cursorpos) + y_pos)
 		screen.blit(text, textrect)
 		pygame.display.update(textrect)
 		cursorpos += 1
@@ -162,7 +166,7 @@ def dumbmenu(screen, menu, x_pos = 100, y_pos = 100, font = None,
 	cursor = myfont.render(">", True, cursorcolor)
 	cursorrect = cursor.get_rect()
 	cursorrect = cursorrect.move(x_pos - (size // distance),
-	             (size // distance * cursorpos) + y_pos)
+				 (size // distance * cursorpos) + y_pos)
 
 	# The whole While-loop takes care to show the Cursor, move the
 	# Cursor and getting the Keys (1-9 and A-Z) to work...
@@ -224,7 +228,7 @@ def dumbmenu(screen, menu, x_pos = 100, y_pos = 100, font = None,
 			pygame.display.update(cursorrect)
 			cursorrect = cursor.get_rect()
 			cursorrect = cursorrect.move(x_pos - (size // distance),
-			             (size // distance * cursorpos) + y_pos)
+						 (size // distance * cursorpos) + y_pos)
 			screen.blit(cursor, cursorrect)
 			pygame.display.update(cursorrect)
 			ArrowPressed = False
@@ -326,7 +330,7 @@ def dumbmenu(screen, menu, x_pos = 100, y_pos = 100, font = None,
 					else:
 						cursorpos += 1
 				elif event.key == pygame.K_KP_ENTER or \
-				     event.key == pygame.K_RETURN:
+					 event.key == pygame.K_RETURN:
 							exitMenu = True
 	
 	return cursorpos

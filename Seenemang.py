@@ -4,6 +4,7 @@ from random import getrandbits
 import dumbmenu as dm
 from pygame.locals import *
 from time import sleep
+from hollow import *
 
 __author__ = 'Siim ja Mari-Liis'
 
@@ -77,8 +78,8 @@ def menu():
         aken.blit(taust,(0,0))
         pygame.display.update()
         pygame.key.set_repeat(500,40)
-        valik = dm.dumbmenu(aken, ['Alusta mangu',
-                                     'Lopeta mang'], 250, 200, "joystixmonospace.ttf", 32, 0.5, Color(0, 0, 0), Color(0, 0, 0))
+        valik = dm.dumbmenu(aken, ['Alusta',
+                                     'Lopeta'], 325, 200, "joystixmonospace.ttf", 40, 0.5, Color(0, 0, 0), Color(0, 0, 0))
         pygame.display.update()
         pygame.display.flip()
         if valik == 0:
@@ -186,8 +187,10 @@ def kaotus():
 def alustauuesti():
     global elusid, seeni, valmis
     font = pygame.font.Font("joystixmonospace.ttf", 27)
+#    uuestitekst = "Kas soovid uuesti alustada?"
     uuestitekst = "Kas soovid uuesti alustada?"
-    uuestirender = font.render(uuestitekst, 1, (0,0,0))
+  #  uuestirender = font.render(uuestitekst, 1, (0,0,0))
+    uuestirender = textOutline(font, uuestitekst, (0,1,0),(255,255,255))
     aken.blit(taust,(0,0))
     while True:
         for event in pygame.event.get():
