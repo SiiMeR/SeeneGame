@@ -79,7 +79,7 @@ def menu():
         pygame.display.update()
         pygame.key.set_repeat(500,40)
         valik = dm.dumbmenu(aken, ['Alusta',
-                                     'Lopeta'], 325, 200, "joystixmonospace.ttf", 40, 0.5, Color(0, 0, 0), Color(0, 0, 0))
+                                     'Lahku'], 305, 200, "joystixmonospace.ttf", 35, 0.5, Color(0, 0, 0), Color(0, 0, 0), True, Color(150,0,0)) # viimane Color vahetab outline colorit
         pygame.display.update()
         pygame.display.flip()
         if valik == 0:
@@ -140,13 +140,15 @@ def joonistaruudustik():
 
 def joonistatekst():
 
-    font = pygame.font.Font("joystixmonospace.ttf", 29)
+    font = pygame.font.Font("joystixmonospace.ttf", 30)
 
     seeneluger = "SEENI  : " + str(seeni)
     eluluger = "ELUSID : " + "SUDA " * elusid
 
-    elutekst = font.render(eluluger, 1, (125,0,0))
-    seenetekst = font.render(seeneluger, 1, (125,0,0))
+    elutekst = textOutline(font,eluluger,(125,0,0),(0,1,0))
+    seenetekst = textOutline(font,seeneluger,(125,0,0),(0,1,0))
+    #elutekst = font.render(eluluger, 1, (125,0,0))
+    #seenetekst = font.render(seeneluger, 1, (125,0,0))
 
     aken.blit(seenetekst, (10,45))
     aken.blit(elutekst, (10,10))
@@ -187,10 +189,10 @@ def kaotus():
 def alustauuesti():
     global elusid, seeni, valmis
     font = pygame.font.Font("joystixmonospace.ttf", 27)
-#    uuestitekst = "Kas soovid uuesti alustada?"
+
     uuestitekst = "Kas soovid uuesti alustada?"
-  #  uuestirender = font.render(uuestitekst, 1, (0,0,0))
-    uuestirender = textOutline(font, uuestitekst, (0,1,0),(255,255,255))
+
+    uuestirender = textOutline(font, uuestitekst, (0,1,0),(150,0,0))
     aken.blit(taust,(0,0))
     while True:
         for event in pygame.event.get():
@@ -200,7 +202,7 @@ def alustauuesti():
         pygame.display.update()
         pygame.key.set_repeat(500,40)
         valik = dm.dumbmenu(aken, ['Jah',
-                                     'Ei'], 340, 250, "joystixmonospace.ttf", 25, 0.5, Color(0, 0, 0), Color(0, 0, 0))
+                                     'Ei'], 340, 250, "joystixmonospace.ttf", 25, 0.5, Color(0, 0, 0), Color(0, 0, 0), True, Color(150,0,0))
 
         if valik == 0:
             seeni = 0

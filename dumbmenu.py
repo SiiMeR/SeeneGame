@@ -23,7 +23,7 @@ praegunesuvakas = genereerisuvakas()
 # **********************************************************************
 def dumbmenu(screen, menu, x_pos = 100, y_pos = 100, font = None,
 			size = 70, distance = 1.4, fgcolor = (255,255,255),
-			cursorcolor = (255,0,0), exitAllowed = True):
+			cursorcolor = (255,0,0), exitAllowed = True, outlinecolor = (10,10,10)):
 	"""Draws a Menu using pygame.
 	
 	Parameters are: screen, menu, x_pos, y_pos, font,
@@ -143,7 +143,7 @@ def dumbmenu(screen, menu, x_pos = 100, y_pos = 100, font = None,
 	renderWithChars = False
 	for i in menu:
 		if renderWithChars == False:
-			text = textOutline(myfont, i,(0,1,0),(255,255,255))
+			text = textOutline(myfont, i,(0,1,0),(outlinecolor))
 			#	text =  myfont.render(i,   # võtsin ära str(cursorpos + 1)+".  " + , mis oli peale myfont.render(
 			#	True, fgcolor)
 		else:
