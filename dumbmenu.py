@@ -3,7 +3,6 @@
 
 import pygame, sys
 from random import randint
-import hollow
 from hollow import *
 seenesuurus = 50
 
@@ -236,7 +235,7 @@ def dumbmenu(screen, menu, x_pos = 100, y_pos = 100, font = None,
 			break
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
-				return -1
+				raise SystemExit
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_ESCAPE and exitAllowed == True:
 					if cursorpos == len(menu) - 1:

@@ -81,9 +81,13 @@ def menu():
 
         pygame.key.set_repeat(500,40)
         valik = dm.dumbmenu(aken, ['Alusta',
+                                   "Juhised",
                                      'Lahku'], 305, 200, "joystixmonospace.ttf", 35, 0.5, Color(0, 0, 0), Color(0, 0, 0), True, Color(255,150,0)) # viimane Color vahetab outline colorit
         pygame.display.update()
         pygame.display.flip()
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                raise SystemExit
         if valik == 0:
             font = pygame.font.Font("joystixmonospace.ttf", 35)
 
@@ -106,8 +110,25 @@ def menu():
                 return
             elif valik2 == 3:
                 valik
-
         elif valik == 1:
+            aken.blit(taust,(0,0))
+
+            font = pygame.font.Font("joystixmonospace.ttf", 29)
+            juhenditekst  = "Vajuta punaste seente peale"
+            juhenditekst3 = "   Elusid on ainult 3"
+            juhenditekst4 = "   F1 - alusta uuesti"
+
+            renderjuhend = textOutline(font, juhenditekst, (0,1,0),(255,150,0))
+            #renderjuhend2 = textOutline(font, juhenditekst2, (0,1,0),(255,150,0))
+            renderjuhend3 = textOutline(font, juhenditekst3, (0,1,0),(255,150,0))
+            renderjuhend4 = textOutline(font, juhenditekst4, (0,1,0),(255,150,0))
+
+            aken.blit(renderjuhend, (90,250))
+            aken.blit(renderjuhend3, (140,300))
+            aken.blit(renderjuhend4, (140,350))
+
+            juhend = dm.dumbmenu(aken,["Tagasi"],320,500, "joystixmonospace.ttf", 35,0.5, Color(0,0,0), Color(0,0,0), True, Color(255,150,0))
+        elif valik == 2:
             raise SystemExit
 
 
@@ -119,10 +140,13 @@ def main():
     timer = time.Clock()
     joonistaruudustik()
 
+
     while True:
+
             elukontroller()
             if seeni == 0:
                 voit()
+
             timer.tick(60)
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN and event.key == K_F1:
@@ -157,7 +181,9 @@ def joonistaruudustik():
             onseen = bool(getrandbits(1))
             if onseen and seeni != maxseeni:
                 seeni += 1
-            tile_group.add(Tile(i, j, onseen))
+                tile_group.add(Tile(i, j, onseen))
+            else:
+                tile_group.add(Tile(i,j,False))
     aken.blit(taust, (0,0))
 
 
