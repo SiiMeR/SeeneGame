@@ -6,6 +6,11 @@
  |_____/ \___|\___|_| |_|\___|\_____|\__,_|_| |_| |_|\___|
 
 
+Kalle ja Anne käisid koos seenel. Anne hiljem märkas, et Kalle puravike sekka on sattunud paar kärbseseent, mis on kindlasti poisile ohtlikud.
+Aita Annel need kärbseseened välja sorteerida. Et Kallele head muljet jätta, otsustas Anne jätta meelde, kus need korvis asusid ja võtta neid välja pimesi.
+Et Kallele head muljet jätta, tohib ta ainult 3 korda segamini ajada.
+
+
 Jäta meelde stiilis mäng
 
 Juhised : Mängu algul jäta meelde seente asukohad. Kui kõik on ümber pööratud, vajuta seente kohtadele, et neid eemaldada. Seente arv on suvaline iga mäng ja aega on lõpmatult, siiski aga elusid on ainult 3.
@@ -15,7 +20,7 @@ Dumbmenu saadud: http://pygame.org/project-dumbmenu-1425-.html
 Hollow saadud : http://www.pygame.org/pcr/hollow_outline/index.php
 
 Music credits:
-Teemix by League Community (kaotuse lugu)
+Gameover - Super Mario Bros. by Nintendo (kaotuse lugu)
 Dora - We did it! by Nickelodeon (võidulugu)
 
 Pildid:

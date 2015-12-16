@@ -114,18 +114,21 @@ def menu():
             aken.blit(taust,(0,0))
 
             font = pygame.font.Font("joystixmonospace.ttf", 29)
-            juhenditekst  = "Vajuta punaste seente peale"
-            juhenditekst3 = "   Elusid on ainult 3"
-            juhenditekst4 = "   F1 - alusta uuesti"
+            juhenditekst  = "Vajuta küsimärkide peale peale,"
+            juhenditekst3 = "kus olid kärbseseened(punased)."
+            juhenditekst4 = "       Sul on 3 elu."
+            juhenditekst5 = "Vajuta F1, et alustada uuesti."
 
             renderjuhend = textOutline(font, juhenditekst, (0,1,0),(255,150,0))
             #renderjuhend2 = textOutline(font, juhenditekst2, (0,1,0),(255,150,0))
             renderjuhend3 = textOutline(font, juhenditekst3, (0,1,0),(255,150,0))
             renderjuhend4 = textOutline(font, juhenditekst4, (0,1,0),(255,150,0))
+            renderjuhend5 = textOutline(font, juhenditekst5, (0,1,0), (255,150,0))
 
-            aken.blit(renderjuhend, (90,250))
-            aken.blit(renderjuhend3, (140,300))
-            aken.blit(renderjuhend4, (140,350))
+            aken.blit(renderjuhend, (30,250))
+            aken.blit(renderjuhend3, (30,300))
+            aken.blit(renderjuhend4, (30,350))
+            aken.blit(renderjuhend5, (30,400))
 
             juhend = dm.dumbmenu(aken,["Tagasi"],320,500, "joystixmonospace.ttf", 35,0.5, Color(0,0,0), Color(0,0,0), True, Color(255,150,0))
         elif valik == 2:
