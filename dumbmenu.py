@@ -3,6 +3,7 @@
 
 import pygame, sys
 from random import randint
+
 from hollow import *
 seenesuurus = 50
 
@@ -202,7 +203,7 @@ def dumbmenu(screen, menu, x_pos = 100, y_pos = 100, font = None,
 			blit_alpha(screen, seencopy,seencopyrect, labipaistvus)
 		elif size >= 500:
 			loppenud = True
-
+	pygame.mixer.init()
 	while True:
 		global loppenud,praeguneseen,praegunesuvakas,labipaistvus
 		clock.tick(30)
@@ -242,6 +243,8 @@ def dumbmenu(screen, menu, x_pos = 100, y_pos = 100, font = None,
 						exitMenu = True
 					else:
 						cursorpos = len(menu) - 1; ArrowPressed = True
+						menupress = pygame.mixer.Sound("menupress.ogg")
+						menupress.play()
 
 
 				# This Section is huge and ugly, I know... But I don't
@@ -320,16 +323,28 @@ def dumbmenu(screen, menu, x_pos = 100, y_pos = 100, font = None,
 					ArrowPressed = True
 					if cursorpos == 0:
 						cursorpos = len(menu) - 1
+						liikumisheli = pygame.mixer.Sound("stomp.ogg")
+						liikumisheli.play()
 					else:
 						cursorpos -= 1
+						liikumisheli = pygame.mixer.Sound("stomp.ogg")
+						liikumisheli.play()
 				elif event.key == pygame.K_DOWN:
 					ArrowPressed = True
 					if cursorpos == len(menu) - 1:
 						cursorpos = 0
+
+						liikumisheli = pygame.mixer.Sound("stomp.ogg")
+						liikumisheli.play()
+
 					else:
 						cursorpos += 1
+						liikumisheli = pygame.mixer.Sound("stomp.ogg")
+						liikumisheli.play()
 				elif event.key == pygame.K_KP_ENTER or \
 					 event.key == pygame.K_RETURN:
+							menupress = pygame.mixer.Sound("menupress.ogg")
+							menupress.play()
 							exitMenu = True
 	
 	return cursorpos
