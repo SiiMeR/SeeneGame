@@ -34,6 +34,8 @@ punane = 255, 0, 0
 roheline = 0, 255, 0
 sinine = 0, 0, 255
 
+display.set_caption("﻿Ohtlik seenelkäik")
+
 
 class Tile(pygame.sprite.Sprite):  # klass ruudukeste jaoks
     def __init__(self, x, y, HasShroom):
