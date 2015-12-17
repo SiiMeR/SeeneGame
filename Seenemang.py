@@ -24,6 +24,9 @@ maxseeni = 0
 ikoon = pygame.image.load("seen.png")
 pygame.display.set_icon(ikoon)
 
+display.set_caption("﻿Tere")
+display.set_caption("Ohtlik seenelkäik")
+
 voitja = pygame.image.load('victory.png')
 kaotaja = pygame.image.load('loss.png')
 taustapilt = pygame.image.load("plats.png")
@@ -34,7 +37,7 @@ punane = 255, 0, 0
 roheline = 0, 255, 0
 sinine = 0, 0, 255
 
-display.set_caption("﻿Ohtlik seenelkäik")
+
 
 
 class Tile(pygame.sprite.Sprite):  # klass ruudukeste jaoks
@@ -138,7 +141,7 @@ def main():
 
     pygame.init()
     pygame.mixer.init()   # muusika
-    display.set_caption("Seenekas")
+  #  display.set_caption("Seenekas")
     timer = time.Clock()
     joonistaruudustik()
 
